@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardBackgroundColor="@color/background_card"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/background_light">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Juice Icon -->
+        <ImageView
+            android:id="@+id/ivJuiceIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/icon_background_white"
+            android:src="@drawable/ic_juice"
+            android:padding="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Juice Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@id/ivJuiceIcon"
+            app:layout_constraintEnd_toStartOf="@id/quantityLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvJuiceName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Jus Alpukat" />
+
+            <TextView
+                android:id="@+id/tvJuicePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/primary_green"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Rp 15.000" />
+
+        </LinearLayout>
+
+        <!-- Quantity Controls -->
+        <LinearLayout
+            android:id="@+id/quantityLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- Decrease Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDecreaseQuantity"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_remove"
+                app:iconSize="20dp"
+                app:iconTint="@color/text_secondary"
+                app:strokeColor="@color/background_light"
+                app:strokeWidth="1dp" />
+
+            <!-- Quantity Display -->
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:background="@drawable/quantity_background"
+                android:gravity="center"
+                android:minWidth="32dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="12dp"
+                android:text="0"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Increase Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIncreaseQuantity"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_add"
+                app:iconSize="20dp"
+                app:iconTint="@color/primary_green"
+                app:strokeColor="@color/primary_green"
+                app:strokeWidth="1dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

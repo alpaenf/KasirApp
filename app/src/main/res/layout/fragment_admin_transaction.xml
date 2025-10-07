@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context=".AdminTransactionFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_green"
+        app:title="Laporan Transaksi"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/ic_menu_modern"
+        app:navigationIconTint="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/transaction_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_marginTop="56dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp">
+
+            <EditText
+                android:id="@+id/etSearchTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Cari transaksi..."
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="8dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTransactionList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            tools:listitem="@layout/item_transaction" />
+
+        <LinearLayout
+            android:id="@+id/empty_state_transaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="48dp"
+            android:paddingBottom="48dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_receipt"
+                android:tint="@color/accent_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belum ada transaksi"
+                android:textColor="@color/text_hint"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transaksi akan muncul di sini setelah ada penjualan."
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_add"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/accent_blue"
+        android:contentDescription="Tambah Transaksi" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

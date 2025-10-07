@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/appbar_gradient"
+    android:paddingTop="36dp"
+    android:paddingBottom="24dp">
+
+    <ImageView
+        android:id="@+id/ivAdminAvatar"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/ic_admin"
+        android:background="@drawable/icon_background_white"
+        android:padding="12dp"
+        android:elevation="4dp"
+        android:contentDescription="Avatar Admin" />
+
+    <TextView
+        android:id="@+id/tvAdminName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin Utama"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:id="@+id/tvAdminEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="admin@email.com"
+        android:textColor="#B3FFFFFF"
+        android:textSize="14sp"
+        android:layout_marginTop="2dp" />
+
+</LinearLayout>

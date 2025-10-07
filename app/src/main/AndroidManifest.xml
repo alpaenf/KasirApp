@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Kasir">
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AdminLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminDashboardActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <activity
+            android:name=".AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KasirDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".SalesReportActivity"
+            android:exported="false"
+            android:label="Laporan Penjualan"
+            android:parentActivityName=".AdminDashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AdminDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".JuiceMenuCrudActivity"
+            android:exported="false"
+            android:label="Kelola Menu Jus"
+            android:parentActivityName=".AdminDashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AdminDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".UserManagementActivity"
+            android:exported="false"
+            android:label="Kelola Pengguna"
+            android:parentActivityName=".AdminDashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AdminDashboardActivity" />
+        </activity>
+
+        <activity
+            android:name="com.example.kasir.TransactionHistoryActivity"
+            android:label="Riwayat Transaksi"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".KasirMainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Kasir" />
+    </application>
+
+</manifest>

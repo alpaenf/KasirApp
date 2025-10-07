@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    android:orientation="vertical"
+    tools:context=".KasirDashboardActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_kasir_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/appbar_gradient"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="4dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+        <!-- Sapaan dan nama kasir -->
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selamat Datang, [Nama Kasir]!"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Info ringkas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/background_card"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginEnd="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:text="Total Transaksi Hari Ini"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                    <TextView
+                        android:id="@+id/tvTotalTransaksi"
+                        android:text="0"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_green" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/background_card"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginStart="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:text="Omzet Hari Ini"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                    <TextView
+                        android:id="@+id/tvOmzetHariIni"
+                        android:text="Rp 0"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_green" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Shortcut aksi cepat -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Akses Cepat"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoToTransaction"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Transaksi"
+                app:icon="@drawable/ic_cart"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="0dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoToHistory"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Riwayat"
+                app:icon="@drawable/ic_orders"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="0dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoToReport"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Laporan"
+                app:icon="@drawable/ic_report"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+        </LinearLayout>
+
+        <!-- Grafik Penjualan -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grafik Penjualan"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartPenjualan"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@color/background_card"
+            android:layout_marginBottom="24dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

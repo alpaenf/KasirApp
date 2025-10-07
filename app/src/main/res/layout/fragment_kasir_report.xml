@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context=".LaporanFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Laporan Penjualan"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/text_primary"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp" />
+
+        <!-- Filter periode -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Periode:"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPeriode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Pilih periode"
+                    android:focusable="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Grafik tren penjualan -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grafik Tren Penjualan"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartLaporan"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@color/background_card"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Rekap penjualan -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/background_card"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            android:layout_marginBottom="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:text="Total Transaksi"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvTotalTransaksiLaporan"
+                    android:text="0"
+                    android:textColor="@color/primary_green"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:text="Total Omzet"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvTotalOmzetLaporan"
+                    android:text="Rp 0"
+                    android:textColor="@color/primary_green"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Tombol ekspor (opsional) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExportLaporan"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Ekspor Laporan"
+            android:icon="@drawable/ic_download"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp" />
+
+        <!-- Pastikan tidak ada <Space> atau view lain tanpa layout_width/layout_height -->
+
+    </LinearLayout>
+
+</ScrollView>

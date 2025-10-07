@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivProduk"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_produk"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/ivProduk"
+            app:layout_constraintStart_toEndOf="@id/ivProduk"
+            app:layout_constraintTop_toTopOf="@id/ivProduk"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayoutButtons">
+
+            <TextView
+                android:id="@+id/tvNamaProduk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jus Jeruk"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvKategoriProduk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jus Buah"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvStokProduk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stock : 100"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvHargaProduk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Rp8.000"
+                android:textColor="#4CAF50"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnHapus"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_background_red"
+                android:text="Hapus"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnEdit"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button_background_blue"
+                android:text="Edit"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

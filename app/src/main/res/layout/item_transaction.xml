@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvTransactionId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID: TRN123"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <TextView
+            android:id="@+id/tvTransactionTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01/01/2024 10:00:00"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+        <TextView
+            android:id="@+id/tvTransactionTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: Rp15000"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:textColor="?android:attr/textColorPrimary"/>
+
+        <TextView
+            android:id="@+id/tvTransactionPaymentMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Metode: Cash"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+        <TextView
+            android:id="@+id/tvTransactionItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item:"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
