@@ -39,7 +39,7 @@ class AdminUserFragment : Fragment() {
         // RecyclerView setup
         val rvUserList = view.findViewById<RecyclerView>(R.id.rvUserList)
         rvUserList.layoutManager = LinearLayoutManager(requireContext())
-    userAdapter = UserAdapter(userList)
+        userAdapter = UserAdapter(userList)
         rvUserList.adapter = userAdapter
 
         // Firestore listener
@@ -51,14 +51,14 @@ class AdminUserFragment : Fragment() {
                     Snackbar.make(view, "Gagal memuat data pengguna", Snackbar.LENGTH_SHORT).show()
                     return@addSnapshotListener
                 }
-                userList.clear()
+                val newUsers = mutableListOf<User>()
                 if (snapshot != null) {
                     for (doc in snapshot.documents) {
-                        val user = doc.toObject(User::class.java)
-                        if (user != null) userList.add(user)
+                        val user = doc.toObject(User::class.java)?.copy(id = doc.id)
+                        if (user != null) newUsers.add(user)
                     }
                 }
-                userAdapter.notifyDataSetChanged()
+                userAdapter.updateData(newUsers)
             }
 
         // Search
@@ -66,7 +66,7 @@ class AdminUserFragment : Fragment() {
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterUser(s.toString())
+                userAdapter.filter(s.toString())
             }
             override fun afterTextChanged(s: Editable?) {}
         })
@@ -85,31 +85,33 @@ class AdminUserFragment : Fragment() {
         userListener?.remove()
     }
 
-
-
     private fun showAddUserDialog(parentView: View) {
         val context = requireContext()
         val inputEmail = EditText(context)
         inputEmail.hint = "Email"
+        val inputNama = EditText(context)
+        inputNama.hint = "Nama"
         val inputRole = EditText(context)
         inputRole.hint = "Role (admin/kasir)"
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.VERTICAL
         layout.setPadding(48, 24, 48, 0)
         layout.addView(inputEmail)
+        layout.addView(inputNama)
         layout.addView(inputRole)
         val dialog = AlertDialog.Builder(context)
             .setTitle("Tambah Pengguna Baru")
             .setView(layout)
             .setPositiveButton("Tambah") { d, _ ->
                 val email = inputEmail.text.toString().trim()
+                val nama = inputNama.text.toString().trim()
                 val role = inputRole.text.toString().trim()
-                if (email.isEmpty() || role.isEmpty()) {
+                if (email.isEmpty() || nama.isEmpty() || role.isEmpty()) {
                     Snackbar.make(parentView, "Semua field wajib diisi", Snackbar.LENGTH_SHORT).show()
                     return@setPositiveButton
                 }
                 val db = FirebaseFirestore.getInstance()
-                val user = User(email = email, role = role)
+                val user = User(email = email, nama = nama, role = role)
                 db.collection("users")
                     .add(user)
                     .addOnSuccessListener {
@@ -122,18 +124,5 @@ class AdminUserFragment : Fragment() {
             .setNegativeButton("Batal", null)
             .create()
         dialog.show()
-    }
-
-    // Edit user dialog di-nonaktifkan karena field nama dan id tidak ada di model User
-
-    // Delete user dialog di-nonaktifkan karena field id tidak ada di model User
-
-    private fun filterUser(query: String) {
-        val filtered = userList.filter {
-            it.email.contains(query, ignoreCase = true) ||
-            it.role.contains(query, ignoreCase = true)
-        }
-        userAdapter = UserAdapter(filtered)
-        view?.findViewById<RecyclerView>(R.id.rvUserList)?.adapter = userAdapter
     }
 }

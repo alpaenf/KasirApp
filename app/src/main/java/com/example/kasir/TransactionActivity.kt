@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -36,6 +37,9 @@ class TransactionActivity : AppCompatActivity() {
     private val currentOrder = mutableListOf<OrderItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Set automatic theme based on system setting
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction)
 
@@ -58,9 +62,7 @@ class TransactionActivity : AppCompatActivity() {
         }
 
         btnLogout.setOnClickListener {
-            auth.signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            finish() // Kembali ke halaman sebelumnya (home)
         }
     }
 
@@ -93,17 +95,25 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     private fun fetchJuiceMenu() {
+        // Show loading state if needed
         db.collection("juice_menu").get()
             .addOnSuccessListener { result ->
                 juiceMenuList.clear()
-                for (document in result) {
-                    val juiceItem = document.toObject(JuiceItem::class.java).copy(id = document.id)
+                if (result.isEmpty) {
+                    // If no menu items found, add sample data
+                    addSampleMenuItems()
+                } else {
+                    for (document in result) {
+                        val juiceItem = document.toObject(JuiceItem::class.java).copy(id = document.id)
                     juiceMenuList.add(juiceItem)
+                    }
+                    juiceMenuAdapter.notifyDataSetChanged()
                 }
-                juiceMenuAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                // Handle error
+                Toast.makeText(this, "Gagal memuat menu: ${exception.message}", Toast.LENGTH_SHORT).show()
+                // Add sample data as fallback
+                addSampleMenuItems()
             }
     }
 
@@ -213,5 +223,27 @@ class TransactionActivity : AppCompatActivity() {
             .setMessage(receiptDetails.toString())
             .setPositiveButton("Tutup", null)
             .show()
+    }
+    
+    private fun addSampleMenuItems() {
+        val sampleJuices = listOf(
+            JuiceItem(id = "1", name = "Jus Alpukat", price = 15000.0),
+            JuiceItem(id = "2", name = "Jus Jeruk", price = 12000.0),
+            JuiceItem(id = "3", name = "Jus Mangga", price = 13000.0),
+            JuiceItem(id = "4", name = "Jus Apel", price = 14000.0),
+            JuiceItem(id = "5", name = "Jus Jambu", price = 11000.0),
+            JuiceItem(id = "6", name = "Jus Wortel", price = 10000.0),
+            JuiceItem(id = "7", name = "Jus Tomat", price = 9000.0),
+            JuiceItem(id = "8", name = "Jus Nanas", price = 12000.0)
+        )
+        
+        juiceMenuList.clear()
+        juiceMenuList.addAll(sampleJuices)
+        juiceMenuAdapter.notifyDataSetChanged()
+        
+        // Also save to Firestore for future use
+        sampleJuices.forEach { juice ->
+            db.collection("juice_menu").add(juice)
+        }
     }
 }

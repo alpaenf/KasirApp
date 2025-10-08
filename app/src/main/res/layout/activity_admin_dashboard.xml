@@ -27,7 +27,7 @@
         app:itemIconTint="@color/icon_primary"
         app:itemRippleColor="@color/ripple_primary"
         app:headerLayout="@layout/nav_header_admin"
-        app:menu="@menu/nav_drawer_menu"
+        app:menu="@menu/admin_drawer_menu"
         app:elevation="8dp" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

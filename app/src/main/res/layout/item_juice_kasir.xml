@@ -82,10 +82,12 @@
                 android:insetBottom="0dp"
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
+                android:gravity="center"
                 app:cornerRadius="20dp"
                 app:icon="@drawable/ic_remove"
                 app:iconSize="20dp"
                 app:iconTint="@color/text_secondary"
+                app:iconGravity="textStart"
                 app:strokeColor="@color/background_light"
                 app:strokeWidth="1dp" />
 
@@ -115,10 +117,12 @@
                 android:insetBottom="0dp"
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
+                android:gravity="center"
                 app:cornerRadius="20dp"
                 app:icon="@drawable/ic_add"
                 app:iconSize="20dp"
                 app:iconTint="@color/primary_green"
+                app:iconGravity="textStart"
                 app:strokeColor="@color/primary_green"
                 app:strokeWidth="1dp" />
 

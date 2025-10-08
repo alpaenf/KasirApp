@@ -1,58 +1,126 @@
 package com.example.kasir
 
-import android.graphics.pdf.PdfDocument
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import com.example.kasir.databinding.FragmentKasirReportBinding
-import java.io.File
-import java.io.FileOutputStream
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class KasirReportFragment : Fragment() {
+    
+    private lateinit var db: FirebaseFirestore
+    private lateinit var tvTotalOmzetLaporan: TextView
+    private lateinit var tvTotalTransaksiLaporan: TextView
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kasir_report, container, false)
+        val view = inflater.inflate(R.layout.fragment_kasir_report, container, false)
+        
+        // Initialize Firebase
+        db = FirebaseFirestore.getInstance()
+        
+        // Setup automatic theme
+        setupTheme()
+        
+        // Initialize views
+        initViews(view)
+        
+        // Load daily report
+        loadDailyReport()
+        
+        return view
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val btnExport = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnExportLaporan)
-        val tvTotalTransaksi = view.findViewById<android.widget.TextView>(R.id.tvTotalTransaksiLaporan)
-        val tvTotalOmzet = view.findViewById<android.widget.TextView>(R.id.tvTotalOmzetLaporan)
-        btnExport.setOnClickListener {
-            exportLaporanToPdf(
-                tvTotalTransaksi.text.toString(),
-                tvTotalOmzet.text.toString()
-            )
-        }
+    
+    private fun setupTheme() {
+        // Set theme to follow system automatically
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
-
-    private fun exportLaporanToPdf(totalTransaksi: String, totalOmzet: String) {
-        val pdfDocument = PdfDocument()
-        val pageInfo = PdfDocument.PageInfo.Builder(300, 400, 1).create()
-        val page = pdfDocument.startPage(pageInfo)
-        val canvas = page.canvas
-        val paint = android.graphics.Paint()
-        paint.textSize = 16f
-        canvas.drawText("Laporan Penjualan", 80f, 40f, paint)
-        paint.textSize = 12f
-        canvas.drawText("Total Transaksi: $totalTransaksi", 40f, 80f, paint)
-        canvas.drawText("Total Omzet: $totalOmzet", 40f, 110f, paint)
-        pdfDocument.finishPage(page)
-        val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "LaporanKasir.pdf")
+    
+    private fun initViews(view: View) {
         try {
-            pdfDocument.writeTo(FileOutputStream(file))
-            Toast.makeText(requireContext(), "PDF berhasil disimpan di Download", Toast.LENGTH_LONG).show()
+            tvTotalOmzetLaporan = view.findViewById(R.id.tvTotalOmzetLaporan)
+            tvTotalTransaksiLaporan = view.findViewById(R.id.tvTotalTransaksiLaporan)
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Gagal menyimpan PDF: ${e.message}", Toast.LENGTH_LONG).show()
+            // Handle view initialization error
+            e.printStackTrace()
         }
-        pdfDocument.close()
     }
-
-    // Tidak perlu onDestroyView untuk binding manual
+    
+    private fun loadDailyReport() {
+        try {
+            val today = Calendar.getInstance()
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val todayString = dateFormat.format(today.time)
+            
+            db.collection("transactions")
+                .whereEqualTo("date", todayString)
+                .get()
+                .addOnSuccessListener { result ->
+                    try {
+                        var totalSales = 0.0
+                        var totalTransactions = 0
+                        
+                        for (document in result) {
+                            totalTransactions++
+                            
+                            // Get items array and calculate total
+                            val items = document.get("items") as? List<Map<String, Any>>
+                            items?.forEach { item ->
+                                val price = when (val priceValue = item["price"]) {
+                                    is Double -> priceValue
+                                    is Long -> priceValue.toDouble()
+                                    is String -> priceValue.toDoubleOrNull() ?: 0.0
+                                    else -> 0.0
+                                }
+                                
+                                val quantity = when (val qtyValue = item["quantity"]) {
+                                    is Int -> qtyValue
+                                    is Long -> qtyValue.toInt()
+                                    is Double -> qtyValue.toInt()
+                                    is String -> qtyValue.toIntOrNull() ?: 1
+                                    else -> 1
+                                }
+                                
+                                totalSales += price * quantity
+                            }
+                        }
+                        
+                        // Update UI safely
+                        activity?.runOnUiThread {
+                            if (::tvTotalOmzetLaporan.isInitialized && ::tvTotalTransaksiLaporan.isInitialized) {
+                                val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+                                tvTotalOmzetLaporan.text = formatter.format(totalSales)
+                                tvTotalTransaksiLaporan.text = "$totalTransactions"
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        setDefaultValues()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    exception.printStackTrace()
+                    setDefaultValues()
+                }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            setDefaultValues()
+        }
+    }
+    
+    private fun setDefaultValues() {
+        activity?.runOnUiThread {
+            if (::tvTotalOmzetLaporan.isInitialized && ::tvTotalTransaksiLaporan.isInitialized) {
+                tvTotalOmzetLaporan.text = "Rp 0"
+                tvTotalTransaksiLaporan.text = "0"
+            }
+        }
+    }
 }

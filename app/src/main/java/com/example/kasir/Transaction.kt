@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.PropertyName
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import java.util.Date
 
 @Parcelize
@@ -15,5 +16,5 @@ data class Transaction(
     val paymentMethod: String = "",
     @get:PropertyName("items") @set:PropertyName(
         "items"
-    ) var items: List<OrderItem> = emptyList()
+    ) var items: @RawValue List<OrderItem> = emptyList()
 ) : Parcelable

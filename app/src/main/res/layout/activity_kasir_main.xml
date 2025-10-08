@@ -26,19 +26,7 @@
             android:id="@+id/kasir_nav_host_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="56dp"
-            android:layout_marginBottom="80dp" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:itemIconTint="@color/bottom_nav_selector"
-            app:itemTextColor="@color/bottom_nav_selector"
-            app:menu="@menu/menu_kasir_bottom_nav"
-            app:elevation="8dp" />
+            android:layout_marginTop="56dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -47,7 +35,7 @@
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/nav_drawer_background"
+        android:background="@color/background_surface"
         app:itemTextColor="@color/text_primary"
         app:itemIconTint="@color/icon_primary"
         app:itemRippleColor="@color/ripple_primary"

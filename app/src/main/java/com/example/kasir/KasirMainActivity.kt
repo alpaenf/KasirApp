@@ -1,17 +1,18 @@
 package com.example.kasir
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,6 +24,9 @@ class KasirMainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Set automatic theme based on system setting
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kasir_main)
 
@@ -47,7 +51,6 @@ class KasirMainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private fun setupNavigationDrawer() {
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, findViewById(R.id.toolbar),
@@ -57,30 +60,7 @@ class KasirMainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
         
         navigationView.setNavigationItemSelectedListener(this)
-        
-        // Setup bottom navigation
-        bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    loadFragment(KasirHomeFragment())
-                    true
-                }
-                R.id.nav_orders -> {
-                    loadFragment(KasirOrdersFragment())
-                    true
-                }
-                R.id.nav_cart -> {
-                    loadFragment(KasirCartFragment())
-                    true
-                }
-                R.id.nav_profile -> {
-                    loadFragment(KasirProfileFragment())
-                    true
-                }
-                else -> false
-            }
-        }
-        
+
         // Setup header info
         setupNavigationHeader()
     }
@@ -118,14 +98,8 @@ class KasirMainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_home -> {
                 loadFragment(KasirHomeFragment())
             }
-            R.id.nav_orders -> {
-                loadFragment(KasirOrdersFragment())
-            }
-            R.id.nav_cart -> {
-                loadFragment(KasirCartFragment())
-            }
-            R.id.nav_report -> {
-                loadFragment(KasirReportFragment())
+            R.id.nav_history -> {
+                loadFragment(TransactionHistoryFragment())
             }
             R.id.nav_profile -> {
                 loadFragment(KasirProfileFragment())

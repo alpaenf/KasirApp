@@ -33,9 +33,7 @@
         <activity
             android:name=".AddProductActivity"
             android:exported="false" />
-        <activity
-            android:name=".KasirDashboardActivity"
-            android:exported="false" />
+        
         <activity
             android:name=".MainActivity"
             android:exported="false"/>
@@ -67,18 +65,17 @@
                 android:value=".AdminDashboardActivity" />
         </activity>
 
-        <activity
-            android:name="com.example.kasir.TransactionHistoryActivity"
-            android:label="Riwayat Transaksi"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+
         <activity
             android:name=".KasirMainActivity"
             android:exported="false"
             android:theme="@style/Theme.Kasir" />
+        <activity
+            android:name=".TransactionActivity"
+            android:exported="false"
+            android:label="Transaksi Baru"
+            android:theme="@style/Theme.Kasir" />
+
     </application>
 
 </manifest>

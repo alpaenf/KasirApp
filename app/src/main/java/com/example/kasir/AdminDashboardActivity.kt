@@ -2,7 +2,6 @@ package com.example.kasir
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -26,41 +25,28 @@ class AdminDashboardActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             replaceFragment(AdminDashboardFragment())
-            navView.setCheckedItem(R.id.nav_home)
+            navView.setCheckedItem(R.id.nav_dashboard)
         }
 
         navView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
+            val fragment = when (item.itemId) {
+                R.id.nav_dashboard -> AdminDashboardFragment()
+                R.id.nav_add_product -> AdminProductFragment()
+                R.id.nav_user_management -> AdminUserFragment()
+                R.id.nav_report -> AdminTransactionFragment()
                 R.id.nav_logout -> {
                     showLogoutConfirmationDialog()
-                    true
+                    null // Do not change fragment
                 }
-                R.id.nav_home -> {
-                    replaceFragment(AdminDashboardFragment())
-                    true
-                }
-                R.id.nav_orders -> {
-                    replaceFragment(AdminTransactionFragment())
-                    true
-                }
-                R.id.nav_profile -> {
-                    replaceFragment(AdminProfileFragment())
-                    true
-                }
-                R.id.nav_report -> {
-                    replaceFragment(AdminTransactionFragment())
-                    true
-                }
-                else -> {
-                    replaceFragment(AdminDashboardFragment())
-                    true
-                }
+                else -> AdminDashboardFragment()
+            }
+            if (fragment != null) {
+                replaceFragment(fragment)
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
-        // Perbaiki back-press
         onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -79,7 +65,7 @@ class AdminDashboardActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null) // FIX: Add to back stack
+            .addToBackStack(null)
             .commit()
     }
 
@@ -100,6 +86,4 @@ class AdminDashboardActivity : AppCompatActivity() {
             }
             .show()
     }
-
-
 }

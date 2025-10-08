@@ -47,7 +47,6 @@ class AdminTransactionFragment : Fragment() {
 
         // Empty state
         val emptyState = view.findViewById<LinearLayout>(R.id.empty_state_transaction)
-        updateEmptyState(emptyState, rvTransactionList)
 
         // Firestore listener
         val db = FirebaseFirestore.getInstance()
@@ -58,14 +57,14 @@ class AdminTransactionFragment : Fragment() {
                     Snackbar.make(view, "Gagal memuat data transaksi", Snackbar.LENGTH_SHORT).show()
                     return@addSnapshotListener
                 }
-                transactionList.clear()
+                val newTransactions = mutableListOf<Transaction>()
                 if (snapshot != null) {
                     for (doc in snapshot.documents) {
                         val transaction = doc.toObject(Transaction::class.java)?.copy(id = doc.id)
-                        if (transaction != null) transactionList.add(transaction)
+                        if (transaction != null) newTransactions.add(transaction)
                     }
                 }
-                transactionAdapter.notifyDataSetChanged()
+                transactionAdapter.updateData(newTransactions)
                 updateEmptyState(emptyState, rvTransactionList)
             }
 
@@ -74,7 +73,7 @@ class AdminTransactionFragment : Fragment() {
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterTransaction(s.toString())
+                transactionAdapter.filter(s.toString())
             }
             override fun afterTextChanged(s: Editable?) {}
         })
@@ -131,17 +130,8 @@ class AdminTransactionFragment : Fragment() {
         dialog.show()
     }
 
-    private fun filterTransaction(query: String) {
-        val filtered = transactionList.filter {
-            (it.id.contains(query, ignoreCase = true) ||
-            it.paymentMethod.contains(query, ignoreCase = true))
-        }
-        val rvTransactionList = view?.findViewById<RecyclerView>(R.id.rvTransactionList)
-        rvTransactionList?.adapter = TransactionAdapter(filtered)
-    }
-
     private fun updateEmptyState(emptyState: LinearLayout, rv: RecyclerView) {
-        if (transactionList.isEmpty()) {
+        if (transactionAdapter.itemCount == 0) {
             emptyState.visibility = View.VISIBLE
             rv.visibility = View.GONE
         } else {

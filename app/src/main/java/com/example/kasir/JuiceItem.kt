@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
 data class JuiceItem(
     @get:Exclude
     var id: String = "", // ID dokumen dari Firestore
-    val name: String = "",
-    val price: Double = 0.0
+    var name: String = "",
+    var price: Double = 0.0
 ) : Parcelable

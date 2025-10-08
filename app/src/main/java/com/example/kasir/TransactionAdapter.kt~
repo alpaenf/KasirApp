@@ -11,14 +11,8 @@ import java.util.Date
 import java.util.Locale
 
 class TransactionAdapter(
-    private var transactionList: MutableList<Transaction>
+    private val transactions: List<Transaction>
 ) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
-
-    private var transactionListFull: MutableList<Transaction> = mutableListOf()
-
-    init {
-        transactionListFull.addAll(transactionList)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_transaction, parent, false)
@@ -26,30 +20,15 @@ class TransactionAdapter(
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        val transaction = transactionList[position]
+        val transaction = transactions[position]
         holder.bind(transaction)
     }
 
-    override fun getItemCount(): Int = transactionList.size
+    override fun getItemCount(): Int = transactions.size
 
     fun updateData(newTransactions: List<Transaction>) {
-        transactionList.clear()
-        transactionList.addAll(newTransactions)
-        transactionListFull.clear()
-        transactionListFull.addAll(newTransactions)
-        notifyDataSetChanged()
-    }
-
-    fun filter(query: String) {
-        transactionList.clear()
-        if (query.isEmpty()) {
-            transactionList.addAll(transactionListFull)
-        } else {
-            val filteredList = transactionListFull.filter {
-                it.id.contains(query, ignoreCase = true) || it.paymentMethod.contains(query, ignoreCase = true)
-            }
-            transactionList.addAll(filteredList)
-        }
+        (transactions as MutableList).clear()
+        transactions.addAll(newTransactions)
         notifyDataSetChanged()
     }
 

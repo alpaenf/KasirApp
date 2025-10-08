@@ -90,12 +90,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         btnTransactionHistory.setOnClickListener { 
-            if (transactionHistory.isEmpty()) {
-                Toast.makeText(this, "Belum ada riwayat transaksi", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            val intent = TransactionHistoryActivity.newIntent(this, ArrayList(transactionHistory))
-            startActivity(intent)
+            // Transaction history now handled in KasirMainActivity with fragments
+            Toast.makeText(this, "Silakan akses riwayat melalui aplikasi kasir", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
                 if (document != null && document.exists()) {
                     when (document.getString("role")) {
                         "Admin" -> navigateTo(AdminDashboardActivity::class.java)
-                        "Kasir" -> navigateTo(KasirDashboardActivity::class.java)
+                        "Kasir" -> navigateTo(KasirMainActivity::class.java)
                         else -> redirectToLogin() // Role tidak valid
                     }
                 } else {
