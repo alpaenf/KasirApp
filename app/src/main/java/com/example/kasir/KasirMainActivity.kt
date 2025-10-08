@@ -49,11 +49,11 @@ class KasirMainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     private fun setupNavigationDrawer() {
-        drawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, findViewById(R.id.toolbar),
+            this, drawerLayout, findViewById<Toolbar>(R.id.toolbar),
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
